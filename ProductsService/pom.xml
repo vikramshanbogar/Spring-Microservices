@@ -11,7 +11,7 @@
 	<groupId>org.example</groupId>
 	<artifactId>Products</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Products</name>
+	<name>products-service</name>
 	<description>Products</description>
 	<url/>
 	<licenses>

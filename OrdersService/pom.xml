@@ -11,7 +11,7 @@
     <groupId>org.example</groupId>
     <artifactId>Orders</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Orders</name>
+    <name>orders-service</name>
     <description>Orders</description>
     <url/>
     <licenses>
