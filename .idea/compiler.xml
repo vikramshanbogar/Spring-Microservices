@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Orders" />
         <module name="Products" />
+        <module name="Config-service" />
         <module name="customers" />
         <module name="DiscoveryService" />
         <module name="Gateway" />
@@ -17,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Config-service" options="-parameters" />
       <module name="DiscoveryService" options="-parameters" />
       <module name="Gateway" options="-parameters" />
       <module name="Orders" options="-parameters" />
