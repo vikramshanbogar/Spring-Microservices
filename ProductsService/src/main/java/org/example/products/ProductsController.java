@@ -24,7 +24,7 @@ public class ProductsController {
     @GetMapping("/{id}")
     public Product getProductsById(@PathVariable int id) {
         Optional<Product> product = productsRepo.findById(id);
-        if (product.isEmpty()) {
+        if (product.isPresent()) {
             return product.get();
         }
         return null;

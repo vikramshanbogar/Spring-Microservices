@@ -15,7 +15,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER,  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     List<Product> products;
     Integer customerId;
 

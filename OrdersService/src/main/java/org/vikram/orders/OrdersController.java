@@ -28,12 +28,13 @@ public class OrdersController {
     }
 
     @PostMapping
-    public Orders createOrder(@RequestBody Orders order) {
+    public Orders createOrder(@RequestBody Orders orders) {
         List<Product> products = new ArrayList<>();
-        for (int i = 0; i < order.getProducts().size(); i++) {
-            products.add(restTemplate.getForEntity("http://product-service/products/" + order.getProducts().get(i).getId(), Product.class).getBody());
+        for (int i = 0; i < orders.getProducts().size(); i++) {
+            products.add(restTemplate.getForEntity("http://products-service/products/" + orders.getProducts().get(i).getId(), Product.class).getBody());
         }
-        order.setProducts(products);
-        return orderRepo.save(order);
+        orders.setProducts(products);
+        System.out.println(orders);
+        return orderRepo.save(orders);
     }
 }
