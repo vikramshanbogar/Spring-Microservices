@@ -12,7 +12,8 @@ import lombok.experimental.Accessors;
 @Data
 @AllArgsConstructor
 @Entity
-public class Product {
+public class
+Product {
     public Product(String name, String description, int price) {
         this.name = name;
         this.description = description;
@@ -25,4 +26,7 @@ public class Product {
     String description;
     int price;
 
+    public Product(int id) {
+        this.id = id;
+    }
 }
