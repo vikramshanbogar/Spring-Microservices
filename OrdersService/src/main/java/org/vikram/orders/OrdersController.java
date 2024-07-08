@@ -18,7 +18,8 @@ public class OrdersController {
     @Autowired
     RestTemplate restTemplate;
 
-    //private ProductsService productsService;
+    @Autowired
+    private ProductsService productsService;
 
 
     @GetMapping
@@ -30,7 +31,8 @@ public class OrdersController {
     public Orders createOrder(@RequestBody Orders orders) {
         boolean success = true;
         for (int i = 0; i < orders.getProductsId().size(); i++) {
-            Product product = restTemplate.getForEntity("http://products-service/products/" + orders.getProductsId().get(i), Product.class).getBody();
+            Product product = productsService.getProductDetails(orders.getProductsId().get(i));
+        // Product product = restTemplate.getForEntity("http://products-service/products/" + orders.getProductsId().get(i), Product.class).getBody();
             if (product.getInventory() < 1)
                 success = false;
         }
