@@ -15,13 +15,13 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @ManyToMany(fetch=FetchType.EAGER,  cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    List<Product> products;
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<Integer> productsId;
     Integer customerId;
 
 
-    public Orders(List<Product> products, Integer customerId) {
-        this.products = products;
+    public Orders(List<Integer> productsId, Integer customerId) {
+        this.productsId = productsId;
         this.customerId = customerId;
     }
 

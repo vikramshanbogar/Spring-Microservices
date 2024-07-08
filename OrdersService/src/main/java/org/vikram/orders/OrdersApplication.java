@@ -27,14 +27,9 @@ public class OrdersApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
-        Product p1 = new Product(1);
-        Product p2 = new Product(2);
-        Product p3 = new Product(3);
-        Product p4 = new Product(4);
-        ordersRepo.save(new Orders(List.of(p1), 1));
-        ordersRepo.save(new Orders(List.of(p2), 2));
-        ordersRepo.save(new Orders(List.of(p3, p4), 3));
+        ordersRepo.save(new Orders(List.of(1), 1));
+        ordersRepo.save(new Orders(List.of(2), 2));
+        ordersRepo.save(new Orders(List.of(3, 4), 3));
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(objectMapper.writeValueAsString(ordersRepo.findById(1).get()));
     }

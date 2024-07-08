@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,12 +28,14 @@ public class OrdersController {
 
     @PostMapping
     public Orders createOrder(@RequestBody Orders orders) {
-        List<Product> products = new ArrayList<>();
-        for (int i = 0; i < orders.getProducts().size(); i++) {
-            products.add(restTemplate.getForEntity("http://products-service/products/" + orders.getProducts().get(i).getId(), Product.class).getBody());
+        boolean success = true;
+        for (int i = 0; i < orders.getProductsId().size(); i++) {
+            Product product = restTemplate.getForEntity("http://products-service/products/" + orders.getProductsId().get(i), Product.class).getBody();
+            if (product.getInventory() < 1)
+                success = false;
         }
-        orders.setProducts(products);
-        System.out.println(orders);
-        return orderRepo.save(orders);
+        if (success)
+            return orderRepo.save(orders);
+        return null;
     }
 }

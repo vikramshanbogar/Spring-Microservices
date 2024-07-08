@@ -21,10 +21,10 @@ public class ProductsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        repo.save(new Product(1, "iphone", "costly one", 23456));
-        repo.save(new Product(2, "Mac", " one", 654522));
-        repo.save(new Product(3, "Galaxy phone", "great camera", 100000));
-        repo.save(new Product(4, "pixal", "Smooth Android", 2541111));
+        repo.save(new Product(1, "iphone", "costly one", 23456,4));
+        repo.save(new Product(2, "Mac", " one", 654522,5));
+        repo.save(new Product(3, "Galaxy phone", "great camera", 100000,9));
+        repo.save(new Product(4, "pixal", "Smooth Android", 2541111,7));
        // repo.findAll().stream().forEach(System.out::println);
     }
 }

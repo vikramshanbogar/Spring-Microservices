@@ -1,8 +1,6 @@
 package org.vikram.orders;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,25 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-@Entity
-public class
-Product {
-    public Product(String name, String description, int price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
+public class Product {
 
-    @Id
+
     int id;
     String name;
     String description;
     int price;
+    int inventory;
 
-//    @ManyToMany
-//    List<Orders> orders;
-
-    public Product(int id) {
-        this.id = id;
-    }
 }
