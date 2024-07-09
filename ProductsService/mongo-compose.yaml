@@ -1,6 +1,6 @@
 version: "3"
 services:
-  springBoot_productsService:
+  products_service:
     image: products_service:latest
     container_name: "products_service"
     ports:

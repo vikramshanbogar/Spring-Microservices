@@ -1,0 +1,92 @@
+version: "3.7"
+services:
+  registry-service:
+    image: vikramsvk1/discovery:08.07
+    restart: always
+    ports:
+      - "8761:8761"
+    networks:
+      - docker-bridge-network
+
+  customers-service:
+    image: customersservice:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - docker-bridge-network
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/customersDB?allowPublicKeyRetrieval=true
+      #      - EUREKA_SERVER_ADDRESS=http://registry-service:8761/eureka
+      - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
+    depends_on:
+      - mysqldb
+    volumes:
+      - .m2:/root/.m2
+
+  products_service:
+    image: products_service:latest
+    container_name: "products_service"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb
+    networks:
+      - docker-bridge-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongoDBImage1"
+    ports:
+      - "27017:27017"
+    volumes:
+      #local dir/files: docker dir/files
+      - ~/apps/mongoData:/data/db
+    networks:
+      - docker-bridge-network
+
+  orders_service:
+    image: orders_service:latest
+    container_name: "orders_service"
+    restart: always
+    ports:
+      - 8082:8082
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/ordersDB
+    depends_on:
+      - postgres
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - docker-bridge-network
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ordersDB
+    networks:
+      - docker-bridge-network
+
+  mysqldb:
+    image: "mysql:latest"
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - docker-bridge-network
+    environment:
+      MYSQL_DATABASE: customersDB
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      #local dir/files: docker dir/files
+      - ~/apps/mysqlDB:/var/lib/mysql
+
+networks:
+  docker-bridge-network:
+    driver: bridge
+
