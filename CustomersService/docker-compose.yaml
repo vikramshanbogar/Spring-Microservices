@@ -9,7 +9,7 @@ services:
       - springapimysql-net
 
   api_service:
-    image: customersservice:latest
+    build: .
     restart: always
     ports:
       - "8081:8081"
@@ -19,7 +19,6 @@ services:
       - spring.datasource.url=jdbc:mysql://mysqldb:3306/customersDB?allowPublicKeyRetrieval=true
 #      - EUREKA_SERVER_ADDRESS=http://registry-service:8761/eureka
       - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
-
     depends_on:
       - mysqldb
     volumes:
