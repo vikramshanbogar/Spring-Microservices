@@ -9,7 +9,7 @@ services:
       - springapimysql-net
 
   api_service:
-    build: .
+    image: vikramsvk1/customers:08.07
     restart: always
     ports:
       - "8081:8081"
