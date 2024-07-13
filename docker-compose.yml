@@ -85,7 +85,7 @@ services:
   #--------PRODUCTS-----------------
 
   products-service:
-    image: products:13.7
+    image: vikramsvk1/products:13.7
     restart: always
     ports:
       - "8082:8082"
