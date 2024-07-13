@@ -18,6 +18,8 @@ public class Orders {
     @ElementCollection(fetch = FetchType.EAGER)
     List<Integer> productsId;
     Integer customerId;
+    @Transient
+    List<Product> products;
 
 
     public Orders(List<Integer> productsId, Integer customerId) {
