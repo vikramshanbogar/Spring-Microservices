@@ -98,6 +98,7 @@ services:
 
   mongodb:
     image: mongo:latest
+#   use   image: mongo:4.4.18     ->WARNING: MongoDB 5.0+ requires a CPU with AVX support, and your current system does not  VBox issue
     ports:
       - "27017:27017"
     volumes:
