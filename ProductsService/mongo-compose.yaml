@@ -4,7 +4,7 @@ services:
     image: products_service:latest
     container_name: "products_service"
     ports:
-      - "8081:8081"
+      - "8082:8082"
     depends_on:
       - mongodb
     networks:
