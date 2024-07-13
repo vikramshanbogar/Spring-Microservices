@@ -8,33 +8,28 @@ services:
     networks:
       - docker-bridge-network
 
-  customers_service:
-    image: customers:13.7
+  gateway-service:
+    image: vikramsvk1/gateway:13.7
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
+    networks:
+      - docker-bridge-network
+
+  #-------------------CUSTOMERS-SERVICE----------------
+
+  customers-service:
+    image: vikramsvk1/customers:13.7
     restart: always
     ports:
       - "8081:8081"
-    networks:
-      - docker-bridge-network
     environment:
       - spring.datasource.url=jdbc:mysql://mysqldb:3306/customersDB?useSSL=false&allowPublicKeyRetrieval=true
       - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
     depends_on:
       - mysqldb
-    volumes:
-      - .m2:/root/.m2
-
-
-  orders_service:
-    image: orders:13.7
-    container_name: "orders_service"
-    restart: always
-    ports:
-      - 8083:8083
-    environment:
-      - spring.datasource.url=jdbc:postgresql://postgres:5432/ordersDB
-      - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
-    depends_on:
-      - postgres
     volumes:
       - .m2:/root/.m2
     networks:
@@ -54,6 +49,25 @@ services:
       #local dir/files: docker dir/files
       - ~/apps/mysqlDB:/var/lib/mysql
 
+  #-------------------CUSTOMERS-SERVICE ENDS------
+
+  #-------------ORDER_SERVICE---------------------
+
+  orders-service:
+    image: vikramsvk1/orders:13.7
+    restart: always
+    ports:
+      - 8083:8083
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/ordersDB
+      - eureka.client.service-url.defaultZone=http://registry-service:8761/eureka
+    depends_on:
+      - postgres
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - docker-bridge-network
+
   postgres:
     image: postgres
     ports:
@@ -66,11 +80,13 @@ services:
     networks:
       - docker-bridge-network
 
-#--------PRODUCTS-----------------
+  #-------------ORDER_SERVICE END---
 
-  products_service:
+  #--------PRODUCTS-----------------
+
+  products-service:
     image: products:13.7
-    container_name: "products_service"
+    restart: always
     ports:
       - "8082:8082"
     depends_on:
@@ -82,7 +98,6 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: "mongoDBImage1"
     ports:
       - "27017:27017"
     volumes:
