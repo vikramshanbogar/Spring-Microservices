@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: customers-app
-        image: customerspod:1.0
+        image: vikramsvk1/customerspod:1.0
         ports:
         - containerPort: 8081
         env:
