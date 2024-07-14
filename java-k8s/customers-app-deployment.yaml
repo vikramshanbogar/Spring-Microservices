@@ -25,3 +25,19 @@ spec:
           value: root
         - name: DATABASE_PASSWORD
           value: "@YourPassword#"
+
+---
+
+# java-crud-app-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: customers-svc
+spec:
+  selector:
+    app: customers-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: NodePort
