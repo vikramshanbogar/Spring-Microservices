@@ -1,0 +1,27 @@
+# customers-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customers-app
+  template:
+    metadata:
+      labels:
+        app: customers-app
+    spec:
+      containers:
+      - name: customers-app
+        image: customerspod:1.0
+        ports:
+        - containerPort: 8081
+        env:
+        - name: DATABASE_URL
+          value: "jdbc:mysql://mysql-service:3306/customersDB"
+        - name: DATABASE_USERNAME
+          value: root
+        - name: DATABASE_PASSWORD
+          value: "@YourPassword#"
